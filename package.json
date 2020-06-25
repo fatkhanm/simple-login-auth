@@ -1,0 +1,27 @@
+{
+  "name": "simple-login-auth",
+  "version": "1.0.0",
+  "description": "simple login use authentication",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fatkhanm/simple-login-auth.git"
+  },
+  "author": "Fatkhan Masruri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fatkhanm/simple-login-auth/issues"
+  },
+  "homepage": "https://github.com/fatkhanm/simple-login-auth#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.20"
+  }
+}
