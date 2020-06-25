@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 var UserSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -11,6 +12,16 @@ var UserSchema = new mongoose.Schema({
         required: true
     }
 });
-
+UserSchema.pre('save',function(next){
+    var user = this;
+    bcrypt.hash(user.password,10,(err,hash)=>{
+        if(err){
+            console.log(err);
+            return next(err)
+        }
+        user.password = hash;
+        next();
+    })
+});
 var User = mongoose.model('User',UserSchema);
 module.exports = User;

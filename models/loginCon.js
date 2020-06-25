@@ -1,15 +1,23 @@
-const user = require('./users');
+const User = require('./userSchema.js');
+const bcrypt = require('bcryptjs');
 
 exports.loginUser = (req,res) =>{
-    if( req.body.email && req.body.password){
-        const email = req.body.email;
-        const password =  req.body.password;
-        const log = user.login(email,password);
-        console.log(log);
-        if(log){
-            res.redirect('/dashboard');
-        }else{
-            res.redirect('/login');
+    User.findOne({email:req.body.email}).exec((err,user)=>{
+        if(err){
+            console.log(err);
+            return callback(err);
+        }else if(!user){
+            var err = new Error('User not Found!');
+            err.status = 404;
+            return callback(err);
         }
-    }
+        bcrypt.compare(req.body.password,user.password,(err,result)=>{
+            if(result){
+                res.redirect('/dashboard');
+                return(null,user);
+            }else{
+                return callback();
+            }
+        })
+    });
 };
